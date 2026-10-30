@@ -1,0 +1,27 @@
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite'
+import tailwindcss from '@tailwindcss/vite'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+  resolve: {
+    alias: {
+      'monaco-editor/esm/vs/editor/editor.api.js': path.resolve(
+        __dirname,
+        'node_modules/monaco-editor/esm/vs/editor/editor.api.js',
+      ),
+    },
+  },
+  optimizeDeps: {
+    include: [
+      'monaco-editor/esm/vs/editor/editor.api.js',
+      'y-monaco',
+      'yjs',
+    ],
+  },
+})
